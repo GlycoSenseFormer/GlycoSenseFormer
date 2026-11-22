@@ -29,7 +29,7 @@ DEFAULT_OUT_CSV = DEFAULT_FIG_DIR / "fig5_cross_attention_seed0_2_3_prediction_v
 DEFAULT_OUT_MD = DEFAULT_FIG_DIR / "fig5_cross_attention_seed0_2_3_prediction_values.md"
 
 MODEL_GROUP = "New cross-attn learnable alpha bs16"
-MODEL_NAME = "EquiformerV3-GlycanAAIdentityResidualCrossAttentionFusion"
+MODEL_NAME = "GlycoSenseFormer"
 
 RUN_DIR_BY_SEED = {
     0: "configs/original_runs/full_100conf_eqv3_glycanaa_cross_attention_identity_residual_fusion_learnable_alpha_fold0_epochs10_bs16_seed0_20260607",

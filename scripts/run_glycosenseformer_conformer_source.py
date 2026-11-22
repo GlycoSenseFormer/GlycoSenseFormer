@@ -55,7 +55,10 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-ARCHITECTURE = "eqv3_glycanaa_cross_attention_identity_residual_fusion"
+sys.path.insert(0, str(ROOT / "src"))
+from module.model_names import GLYCOSENSEFORMER
+
+ARCHITECTURE = GLYCOSENSEFORMER
 TASKS = ("13C", "1H")
 STRATA = ("mono", "di", "tri")
 SAFE_SOURCE = re.compile(r"^[A-Za-z0-9_.-]+$")

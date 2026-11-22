@@ -1,10 +1,10 @@
 group,model,task,seed,config,checkpoint
-table2,eqv3_glycanaa_cross_attention_identity_residual_fusion,13C,4,configs/table2/eqv3_glycanaa_cross_attention_identity_residual_fusion/seed4/13C.json,checkpoints/table2/eqv3_glycanaa_cross_attention_identity_residual_fusion/seed4/13C/epoch9.pkl
-table2,eqv3_glycanaa_cross_attention_identity_residual_fusion,1H,4,configs/table2/eqv3_glycanaa_cross_attention_identity_residual_fusion/seed4/1H.json,checkpoints/table2/eqv3_glycanaa_cross_attention_identity_residual_fusion/seed4/1H/epoch9.pkl
-table2,eqv3_glycanaa_cross_attention_identity_residual_fusion,13C,7,configs/table2/eqv3_glycanaa_cross_attention_identity_residual_fusion/seed7/13C.json,checkpoints/table2/eqv3_glycanaa_cross_attention_identity_residual_fusion/seed7/13C/epoch9.pkl
-table2,eqv3_glycanaa_cross_attention_identity_residual_fusion,1H,7,configs/table2/eqv3_glycanaa_cross_attention_identity_residual_fusion/seed7/1H.json,checkpoints/table2/eqv3_glycanaa_cross_attention_identity_residual_fusion/seed7/1H/epoch9.pkl
-table2,eqv3_glycanaa_cross_attention_identity_residual_fusion,13C,9,configs/table2/eqv3_glycanaa_cross_attention_identity_residual_fusion/seed9/13C.json,checkpoints/table2/eqv3_glycanaa_cross_attention_identity_residual_fusion/seed9/13C/epoch9.pkl
-table2,eqv3_glycanaa_cross_attention_identity_residual_fusion,1H,9,configs/table2/eqv3_glycanaa_cross_attention_identity_residual_fusion/seed9/1H.json,checkpoints/table2/eqv3_glycanaa_cross_attention_identity_residual_fusion/seed9/1H/epoch9.pkl
+table2,GlycoSenseFormer,13C,4,configs/GlycoSenseFormer/seed4/13C.json,checkpoints/table2/GlycoSenseFormer/seed4/13C/epoch9.pkl
+table2,GlycoSenseFormer,1H,4,configs/GlycoSenseFormer/seed4/1H.json,checkpoints/table2/GlycoSenseFormer/seed4/1H/epoch9.pkl
+table2,GlycoSenseFormer,13C,7,configs/GlycoSenseFormer/seed7/13C.json,checkpoints/table2/GlycoSenseFormer/seed7/13C/epoch9.pkl
+table2,GlycoSenseFormer,1H,7,configs/GlycoSenseFormer/seed7/1H.json,checkpoints/table2/GlycoSenseFormer/seed7/1H/epoch9.pkl
+table2,GlycoSenseFormer,13C,9,configs/GlycoSenseFormer/seed9/13C.json,checkpoints/table2/GlycoSenseFormer/seed9/13C/epoch9.pkl
+table2,GlycoSenseFormer,1H,9,configs/GlycoSenseFormer/seed9/1H.json,checkpoints/table2/GlycoSenseFormer/seed9/1H/epoch9.pkl
 table2,equiformer_v3,13C,4,configs/table2/equiformer_v3/seed4/13C.json,checkpoints/table2/equiformer_v3/seed4/13C/epoch9.pkl
 table2,equiformer_v3,1H,4,configs/table2/equiformer_v3/seed4/1H.json,checkpoints/table2/equiformer_v3/seed4/1H/epoch9.pkl
 table2,equiformer_v3,13C,7,configs/table2/equiformer_v3/seed7/13C.json,checkpoints/table2/equiformer_v3/seed7/13C/epoch9.pkl

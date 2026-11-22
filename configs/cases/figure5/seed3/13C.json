@@ -1,7 +1,7 @@
 {
   "out_dir": "outputs/retraining/figure5/seed3",
-  "model_name": "EquiformerV3-GlycanAAIdentityResidualCrossAttentionFusion",
-  "architecture": "eqv3_glycanaa_cross_attention_identity_residual_fusion",
+  "model_name": "GlycoSenseFormer",
+  "architecture": "GlycoSenseFormer",
   "start_fold": 0,
   "end_fold": 1,
   "epochs": 10,

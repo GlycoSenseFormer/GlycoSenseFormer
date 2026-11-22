@@ -13,6 +13,9 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[3]
+sys.path.insert(0, str(ROOT / "src"))
+
+from module.model_names import GLYCOSENSEFORMER, canonical_model_name
 DATA_DIR = ROOT / "data"
 RESULT_RE = re.compile(
     r"Test MAE is (?P<mae>[-+0-9.eE]+)(?:,| and) RMSE is (?P<rmse>[-+0-9.eE]+)"
@@ -239,7 +242,7 @@ def write_markdown(
         lines.append("- Cross-attention fusion: Equiformer v3 atom scalar features query inferred GlycanAA monosaccharide tokens, then the fused scalar features are used for direct NMR prediction.")
     if args.architecture == "eqv3_glycanaa_cross_attention_residual_fusion":
         lines.append("- Residual cross-attention fusion: Equiformer v3 atom scalar features query inferred GlycanAA monosaccharide tokens, then a small residual adapter is added before direct NMR prediction.")
-    if args.architecture == "eqv3_glycanaa_cross_attention_identity_residual_fusion":
+    if canonical_model_name(args.architecture) == GLYCOSENSEFORMER:
         lines.append("- Identity residual cross-attention fusion: Equiformer v3 atom scalar features query inferred GlycanAA monosaccharide tokens, then a small no-norm residual adapter is added before direct NMR prediction.")
     if args.architecture == "eqv3_glycanaa_cross_attention_identity_residual_zero_mono_token_fusion":
         lines.append("- Zero-mono-token identity residual cross-attention ablation: GlycanAA inferred monosaccharide token content is zeroed while the single-direction attention path and residual adapter are kept.")
@@ -333,6 +336,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--model_name", default="EquiformerV3-full")
     parser.add_argument(
         "--architecture",
+        type=canonical_model_name,
         default="equiformer_v3",
         choices=[
             "equiformer_v3",
@@ -348,7 +352,7 @@ def build_parser() -> argparse.ArgumentParser:
             "eqv3_glycanaa_hetero_fusion",
             "eqv3_glycanaa_cross_attention_fusion",
             "eqv3_glycanaa_cross_attention_residual_fusion",
-            "eqv3_glycanaa_cross_attention_identity_residual_fusion",
+            GLYCOSENSEFORMER,
             "eqv3_glycanaa_cross_attention_zero_mono_token_residual_fusion",
             "eqv3_glycanaa_cross_attention_identity_residual_zero_mono_token_fusion",
             "eqv3_glycanaa_cross_attention_bidirectional_residual_fusion",

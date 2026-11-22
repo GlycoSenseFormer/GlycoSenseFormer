@@ -8,8 +8,22 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / 'src'))
 sys.path.insert(0, str(ROOT / 'src/equiformer_v3'))
 sys.path.insert(0, str(ROOT / 'src/equiformer_v3/src'))
+
+from module.model_names import GLYCOSENSEFORMER, LEGACY_GLYCOSENSEFORMER, canonical_model_name
+
+
+def checkpoint_path(directory: Path, recorded_path: str) -> Path:
+    relative = Path(recorded_path).relative_to('checkpoints')
+    checkpoint = directory / relative
+    if not checkpoint.is_file() and relative.parts[:2] == ('table2', GLYCOSENSEFORMER):
+        archived = directory / 'table2' / LEGACY_GLYCOSENSEFORMER / Path(*relative.parts[2:])
+        if archived.is_file():
+            return archived
+    return checkpoint
+
 
 def records(path):
     with path.open(encoding='utf-8-sig', newline='') as handle:
@@ -21,7 +35,7 @@ def main():
     parser.add_argument('--case-manifest', type=Path, default=ROOT/'data/cases/fig5_representative_validation_molecules_selected.csv', help='Site-selection manifest for case comparisons')
     parser.add_argument('--checkpoint-dir', type=Path, default=ROOT/'checkpoints', help='Directory containing the optional manuscript checkpoints')
     parser.add_argument('--group', choices=['table2','table4','cases'], default='table2')
-    parser.add_argument('--model', default='main', help='main, all, or an architecture from configs/legacy_runs.csv')
+    parser.add_argument('--model', default='main', help='main (GlycoSenseFormer), all, or a model in configs/legacy_runs.csv')
     parser.add_argument('--task', choices=['13C','1H','both'], default='both')
     parser.add_argument('--seed', type=int)
     parser.add_argument('--example', action='store_true', help='Predict the first archived external monosaccharide')
@@ -39,13 +53,11 @@ def main():
     from scripts.export_fig5_cross_attention_predictions import predict_molecule, target_mask
     torch.set_num_threads(2)
     device=torch.device(args.device)
-    main_name='eqv3_glycanaa_cross_attention_identity_residual_fusion'
-    model_name=main_name if args.model=='main' else args.model
+    model_name = GLYCOSENSEFORMER if args.model == 'main' else canonical_model_name(args.model)
     runs=[r for r in records(ROOT/'configs/legacy_runs.csv') if r['group']==args.group and (model_name=='all' or r['model']==model_name) and (args.seed is None or int(r['seed'])==args.seed) and args.task in (r['task'],'both')]
     if not runs:parser.error('No matching runs in configs/legacy_runs.csv')
     for run in runs:
-        relative = Path(run['checkpoint']).relative_to('checkpoints')
-        checkpoint = args.checkpoint_dir / relative
+        checkpoint = checkpoint_path(args.checkpoint_dir, run['checkpoint'])
         if not checkpoint.is_file():
             parser.error(f'Missing {checkpoint}. Supply --checkpoint-dir with the archived checkpoints directory.')
         run['weight_path'] = checkpoint

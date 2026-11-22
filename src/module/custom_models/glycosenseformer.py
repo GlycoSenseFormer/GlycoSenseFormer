@@ -270,10 +270,10 @@ class EquiformerV3GlycanAAResidualCrossAttentionFusionNMR(
         return fused_scalar, attn_context
 
 
-class EquiformerV3GlycanAAIdentityResidualCrossAttentionFusionNMR(
+class GlycoSenseFormer(
     EquiformerV3GlycanAAResidualCrossAttentionFusionNMR
 ):
-    """Small residual cross-attention adapter without post-residual normalization."""
+    """GlycoSenseFormer with identity residual cross-attention."""
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
@@ -538,3 +538,7 @@ class EquiformerV3GlycanAAIdentityResidualMonoContextCrossAttentionFusionNMR(
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.residual_norm = torch.nn.Identity()
+
+
+# Preserve the qualified class name used by earlier serialized models.
+EquiformerV3GlycanAAIdentityResidualCrossAttentionFusionNMR = GlycoSenseFormer

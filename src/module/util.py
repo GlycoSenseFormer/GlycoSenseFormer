@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from .model_names import GLYCOSENSEFORMER, canonical_model_name
+
 
 def load_config(path: str | Path) -> dict[str, Any]:
     path = Path(path)
@@ -19,6 +21,7 @@ def load_config(path: str | Path) -> dict[str, Any]:
 def add_equiformer_model_args(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--architecture",
+        type=canonical_model_name,
         default="equiformer_v3",
         choices=[
             "equiformer_v3",
@@ -37,7 +40,7 @@ def add_equiformer_model_args(parser: argparse.ArgumentParser) -> None:
             "eqv3_glycanaa_hetero_fusion",
             "eqv3_glycanaa_cross_attention_fusion",
             "eqv3_glycanaa_cross_attention_residual_fusion",
-            "eqv3_glycanaa_cross_attention_identity_residual_fusion",
+            GLYCOSENSEFORMER,
             "eqv3_glycanaa_cross_attention_zero_mono_token_residual_fusion",
             "eqv3_glycanaa_cross_attention_identity_residual_zero_mono_token_fusion",
             "eqv3_glycanaa_cross_attention_bidirectional_residual_fusion",

@@ -19,7 +19,7 @@ conda activate glycosenseformer
 
 ## Run
 
-Supply prepared input graphs and model checkpoints separately.
+The model implementation is in [glycosenseformer.py](src/module/custom_models/glycosenseformer.py) and its configurations are in [configs/GlycoSenseFormer](configs/GlycoSenseFormer). Supply prepared input graphs and model checkpoints separately.
 
 ```bash
 python scripts/train_legacy.py --help

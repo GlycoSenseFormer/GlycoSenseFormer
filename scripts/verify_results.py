@@ -1,8 +1,12 @@
 """Recompute manuscript statistics from atom-level predictions."""
 import argparse,csv,math,statistics as st
+import sys
 from collections import defaultdict
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/'src'))
+from module.model_names import GLYCOSENSEFORMER, canonical_model_name
+
 def read(p):
     with p.open(encoding='utf-8-sig',newline='') as h:return list(csv.DictReader(h))
 def metrics(pairs):
@@ -24,7 +28,7 @@ def main():
     groups=defaultdict(list)
     if args.predictions:
         for r in read(args.predictions):
-            if r['model']!='eqv3_glycanaa_cross_attention_identity_residual_fusion':continue
+            if canonical_model_name(r['model']) != GLYCOSENSEFORMER:continue
             for s in [r['split'],'overall']:
                 groups['main_table2',r['task'],s,r['seed']].append((float(r['reference_ppm']),float(r['prediction_ppm'])))
     else:

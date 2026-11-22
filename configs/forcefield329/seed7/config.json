@@ -5,9 +5,9 @@
     "protocol": "common329_full_train_independent_mmff94_100_validation",
     "scientific_backend": true,
     "backend": "official",
-    "architecture": "eqv3_glycanaa_cross_attention_identity_residual_fusion",
+    "architecture": "GlycoSenseFormer",
     "publication_model_config": {
-      "architecture": "eqv3_glycanaa_cross_attention_identity_residual_fusion",
+      "architecture": "GlycoSenseFormer",
       "eqv3_num_layers": 7,
       "eqv3_num_channels": 128,
       "eqv3_attn_hidden_channels": 32,

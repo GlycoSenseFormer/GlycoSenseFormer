@@ -9,6 +9,7 @@ from torch_geometric.loader import DataLoader
 
 from module.custom_data import load_train_test_data
 from module.custom_models import build_nmr_model
+from module.model_names import GLYCOSENSEFORMER, canonical_model_name
 
 
 class Trainer:
@@ -151,7 +152,8 @@ def set_seed(seed: int) -> None:
 
 
 def build_model_kwargs(args) -> dict:
-    if args.architecture in {
+    architecture = canonical_model_name(args.architecture)
+    if architecture in {
         "gcn",
         "gin",
         "gat",
@@ -164,30 +166,30 @@ def build_model_kwargs(args) -> dict:
         "glycanaa_hetero_atom",
     }:
         kwargs = {
-            "architecture": args.architecture,
+            "architecture": architecture,
             "hidden_channels": args.baseline_hidden_channels,
             "num_layers": args.baseline_num_layers,
             "dropout": args.baseline_dropout,
             "head_hidden_channels": args.baseline_head_hidden_channels,
         }
-        if args.architecture in {"mpnn", "painn", "egnn", "glycanaa_atom", "glycanaa_hetero_atom"}:
+        if architecture in {"mpnn", "painn", "egnn", "glycanaa_atom", "glycanaa_hetero_atom"}:
             kwargs["edge_hidden_channels"] = args.baseline_edge_hidden_channels
-        if args.architecture == "gat":
+        if architecture == "gat":
             kwargs["heads"] = args.baseline_attention_heads
-        if args.architecture in {"rgcn", "compgcn", "glycanaa_atom", "glycanaa_hetero_atom"}:
+        if architecture in {"rgcn", "compgcn", "glycanaa_atom", "glycanaa_hetero_atom"}:
             kwargs["num_relations"] = args.baseline_num_relations
         return kwargs
-    if args.architecture == "geqshift":
+    if architecture == "geqshift":
         return {
-            "architecture": args.architecture,
+            "architecture": architecture,
             "n_input": args.geqshift_n_input,
             "n_node_attr": args.geqshift_n_node_attr,
             "n_output": args.geqshift_n_output,
             "n_layers": args.geqshift_n_layers,
         }
-    if args.architecture == "glycangt_atom":
+    if architecture == "glycangt_atom":
         return {
-            "architecture": args.architecture,
+            "architecture": architecture,
             "glycangt_root": args.glycangt_root,
             "config_name": args.glycangt_config_name,
             "distance_bins": args.glycangt_distance_bins,
@@ -196,11 +198,11 @@ def build_model_kwargs(args) -> dict:
             "head_hidden_channels": args.baseline_head_hidden_channels,
             "freeze_encoder": args.glycangt_freeze_encoder,
         }
-    if args.architecture in {
+    if architecture in {
         "eqv3_glycanaa_hetero_fusion",
         "eqv3_glycanaa_cross_attention_fusion",
         "eqv3_glycanaa_cross_attention_residual_fusion",
-        "eqv3_glycanaa_cross_attention_identity_residual_fusion",
+        GLYCOSENSEFORMER,
         "eqv3_glycanaa_cross_attention_zero_mono_token_residual_fusion",
         "eqv3_glycanaa_cross_attention_identity_residual_zero_mono_token_fusion",
         "eqv3_glycanaa_cross_attention_bidirectional_residual_fusion",
@@ -226,7 +228,7 @@ def build_model_kwargs(args) -> dict:
         "eqv3_glycan_chain_stable_scalar_residual_concat_fusion",
     }:
         return {
-            "architecture": args.architecture,
+            "architecture": architecture,
             "equiformer_v3_root": args.equiformer_v3_root,
             "eqv3_num_layers": args.eqv3_num_layers,
             "eqv3_num_channels": args.eqv3_num_channels,
@@ -246,9 +248,9 @@ def build_model_kwargs(args) -> dict:
             "fusion_dropout": args.fusion_dropout,
             "fusion_zero_init": not args.no_fusion_zero_init,
         }
-    if args.architecture == "eqv3_glycanaa_mono_bias":
+    if architecture == "eqv3_glycanaa_mono_bias":
         return {
-            "architecture": args.architecture,
+            "architecture": architecture,
             "equiformer_v3_root": args.equiformer_v3_root,
             "eqv3_num_layers": args.eqv3_num_layers,
             "eqv3_num_channels": args.eqv3_num_channels,
@@ -269,7 +271,7 @@ def build_model_kwargs(args) -> dict:
             "bias_zero_init": not args.no_bias_zero_init,
         }
     return {
-        "architecture": args.architecture,
+        "architecture": architecture,
         "equiformer_v3_root": args.equiformer_v3_root,
         "num_layers": args.eqv3_num_layers,
         "num_channels": args.eqv3_num_channels,

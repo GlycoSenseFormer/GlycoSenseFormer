@@ -1,6 +1,18 @@
+import sys
+
+from ..model_names import GLYCOSENSEFORMER, canonical_model_name
+from . import glycosenseformer
 from .baselines import (CompGCNNMR, EGNNNMR, GATNMR, GCNNMR, GINNMR, GeqShiftNMR, MPNNNMR, PaiNNNMR, RGCNNMR)
-from .equiformer_glycanaa_cross_attention_fusion import (EquiformerV3GlycanAAIdentityResidualCrossAttentionFusionNMR, EquiformerV3GlycanAAIdentityResidualZeroMonoTokenCrossAttentionFusionNMR)
+from .glycosenseformer import (
+    EquiformerV3GlycanAAIdentityResidualCrossAttentionFusionNMR,
+    EquiformerV3GlycanAAIdentityResidualZeroMonoTokenCrossAttentionFusionNMR,
+    GlycoSenseFormer,
+)
 from .equiformer_v3_nmr import (EquiformerV3NMR)
+
+
+# Earlier serialized models may import the original module path.
+sys.modules[f"{__name__}.equiformer_glycanaa_cross_attention_fusion"] = glycosenseformer
 
 
 def build_nmr_model(architecture="equiformer_v3", **kwargs):
@@ -24,8 +36,8 @@ def build_nmr_model(architecture="equiformer_v3", **kwargs):
         return CompGCNNMR(**kwargs)
     if architecture == "geqshift":
         return GeqShiftNMR(**kwargs)
-    if architecture == "eqv3_glycanaa_cross_attention_identity_residual_fusion":
-        return EquiformerV3GlycanAAIdentityResidualCrossAttentionFusionNMR(**kwargs)
+    if canonical_model_name(architecture) == GLYCOSENSEFORMER:
+        return GlycoSenseFormer(**kwargs)
     if architecture == "eqv3_glycanaa_cross_attention_identity_residual_zero_mono_token_fusion":
         return EquiformerV3GlycanAAIdentityResidualZeroMonoTokenCrossAttentionFusionNMR(**kwargs)
     raise ValueError(f"Unknown publication model: {architecture}")
