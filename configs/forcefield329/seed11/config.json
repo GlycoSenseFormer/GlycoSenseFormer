@@ -1,0 +1,78 @@
+{
+  "config_hash": "5d6405e7a617c36a0369d1f3ec69bf2b1637ce5f90e97e9ba9a635a43d2ab669",
+  "resolved_config": {
+    "schema_version": 1,
+    "protocol": "common329_full_train_independent_mmff94_100_validation",
+    "scientific_backend": true,
+    "backend": "official",
+    "architecture": "eqv3_glycanaa_cross_attention_identity_residual_fusion",
+    "publication_model_config": {
+      "architecture": "eqv3_glycanaa_cross_attention_identity_residual_fusion",
+      "eqv3_num_layers": 7,
+      "eqv3_num_channels": 128,
+      "eqv3_attn_hidden_channels": 32,
+      "eqv3_ffn_hidden_channels": 512,
+      "eqv3_num_radial_basis": 64,
+      "eqv3_lmax": 4,
+      "eqv3_mmax": 2,
+      "eqv3_max_radius": 6.0,
+      "glycanaa_hidden_channels": 128,
+      "glycanaa_num_layers": 4,
+      "glycanaa_edge_hidden_channels": 64,
+      "glycanaa_dropout": 0.1,
+      "glycanaa_head_hidden_channels": 128,
+      "glycanaa_num_relations": 6,
+      "fusion_hidden_channels": 256,
+      "fusion_dropout": 0.1,
+      "fusion_zero_init": true
+    },
+    "train": {
+      "molecule_count": 329,
+      "split": "none_all_molecules_train",
+      "sources": [
+        "charmm_fps100",
+        "glycam_fps100"
+      ],
+      "tasks": [
+        "13C"
+      ],
+      "epochs": 10,
+      "batch_size": 12,
+      "lr": 0.0003,
+      "lr_reduce": 0.8,
+      "seed": 11,
+      "max_confs": 100,
+      "ensemble_aggregation": "equal_arithmetic_mean"
+    },
+    "validation": {
+      "dataset_dir": "/home/cns/糖NMR/equiformer/data/datasets_glyconmr_len123_independent_validation_small",
+      "source": "independent_mmff94_100",
+      "molecule_count": 100,
+      "conformers_per_molecule": 100,
+      "validation_limit": null
+    },
+    "inputs": {
+      "manifests": [
+        {
+          "path": "/home/cns/糖NMR/equiformer/experiments/glycosenseformer_conformer_source_v1/conformer_sources/etkdg_mmff_paired_fps100_v1/conformer_source_manifest.csv",
+          "sha256": "a979f780befe08a387e2b8df9c8a0ebdcfe56e62574087111f84dffea25c3465"
+        },
+        {
+          "path": "/home/cns/糖NMR/equiformer/experiments/glycosenseformer_conformer_source_v1/conformer_sources/md_fps100/conformer_source_manifest.csv",
+          "sha256": "7be2c2cc706655d2f45649678658169eaeba0569f8bac65ac7003c19f345dd84"
+        }
+      ],
+      "manifest_hash": "7c8ac0b7c5b26fadc72dc787d491d78dacba2ba075b760158adcd4330b2756a1",
+      "training_input_hash": "055a525ba1d78e599c7fa38d3e33f41efff61c44f161eb1f4532e8ffc57bbf9c",
+      "validation_hash": "447f51f6f5f5448c49fd25d772392cf5709a4f8bef92e869d624863174dd6c7b",
+      "combined_input_hash": "dfa97449e2701888f06b0ae8ef08eb7c6780c438b02b646d39a7b5db00ac2d2d"
+    },
+    "runtime": {
+      "device": "cuda",
+      "equiformer_v3_root": "/home/cns/糖NMR/equiformer_v3",
+      "resume": true,
+      "pilot": false,
+      "limit": null
+    }
+  }
+}
